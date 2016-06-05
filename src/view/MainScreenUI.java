@@ -46,7 +46,6 @@ public class MainScreenUI extends javax.swing.JFrame {
         txtFirstName = new javax.swing.JTextField();
         txtLastName = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        txtDob = new javax.swing.JFormattedTextField();
         jLabel6 = new javax.swing.JLabel();
         txtStreet = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
@@ -59,15 +58,16 @@ public class MainScreenUI extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         txtHomePhone = new javax.swing.JFormattedTextField();
         txtCellPhone = new javax.swing.JFormattedTextField();
+        txtDOB = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         txtMembershipPlan = new javax.swing.JTextField();
         txtMembershipCost = new javax.swing.JTextField();
-        txtMembershipDate = new javax.swing.JFormattedTextField();
         jLabel15 = new javax.swing.JLabel();
         txtMemberID = new javax.swing.JTextField();
+        txtMemberDate = new javax.swing.JTextField();
         btnSave = new javax.swing.JButton();
         btnExit = new javax.swing.JButton();
 
@@ -160,9 +160,6 @@ public class MainScreenUI extends javax.swing.JFrame {
 
         jLabel5.setText("Date of Birth");
 
-        txtDob.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT))));
-        txtDob.setText("m/d/yy");
-
         jLabel6.setText("Street Address");
 
         jLabel7.setText("City");
@@ -192,6 +189,8 @@ public class MainScreenUI extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+
+        txtDOB.setText("mm/dd/yyyy");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -225,7 +224,6 @@ public class MainScreenUI extends javax.swing.JFrame {
                                     .addComponent(txtLastName, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel4)))
                             .addComponent(jLabel5)
-                            .addComponent(txtDob, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -237,6 +235,9 @@ public class MainScreenUI extends javax.swing.JFrame {
                                     .addComponent(jLabel11))))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(txtDOB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -252,7 +253,7 @@ public class MainScreenUI extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtDob, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtDOB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -292,10 +293,9 @@ public class MainScreenUI extends javax.swing.JFrame {
             }
         });
 
-        txtMembershipDate.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT))));
-        txtMembershipDate.setText("m/d/yy");
-
         jLabel15.setText("ID:");
+
+        txtMemberDate.setText("mm/dd/yyyy");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -305,7 +305,6 @@ public class MainScreenUI extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel12)
-                    .addComponent(txtMembershipDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel14)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
@@ -314,7 +313,8 @@ public class MainScreenUI extends javax.swing.JFrame {
                             .addComponent(txtMemberID))
                         .addComponent(txtMembershipCost)
                         .addComponent(txtMembershipPlan, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(txtMemberDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -327,7 +327,7 @@ public class MainScreenUI extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel12)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtMembershipDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtMemberDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12)
                 .addComponent(jLabel13)
                 .addGap(12, 12, 12)
@@ -408,14 +408,33 @@ public class MainScreenUI extends javax.swing.JFrame {
     }//GEN-LAST:event_btnExitActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-        // create search model according to which field was entered. 
-        if (txtSearchID.getText() != "")
-            searchModel = new Member(Integer.parseInt(txtSearchID.getText()));
+
+        if (txtSearchID.getText().equals(""))
+            member = new Member(txtSearchFirstName.getText(), txtSearchLastName.getText());
         else
-            searchModel = new Member(txtSearchFirstName.getText(), txtSearchLastName.getText());
+            member = new Member(Integer.parseInt(txtSearchID.getText()));
+           
+        controller = new MainController(member, this);
+        controller.searchMember();
     }//GEN-LAST:event_btnSearchActionPerformed
 
-            
+    // method that controller will use to update the view
+    public void updateMemberDetails(Member m){
+        txtFirstName.setText(m.getFirstName());
+        txtLastName.setText(m.getLastName());
+        txtDOB.setText(m.getDob());
+        txtStreet.setText(m.getStreet());
+        txtCity.setText(m.getCity());
+        txtState.setText(m.getState());
+        txtZip.setText(m.getState());
+        txtHomePhone.setText(Integer.toString(m.getHomeNum()));
+        txtCellPhone.setText(Integer.toString(m.getCellNum()));
+        txtMemberID.setText(Integer.toString(m.getMemberID()));
+        txtMemberDate.setText(m.getMembershipStartDate());
+        txtMembershipCost.setText(Double.toString(m.getMembershipCost()));
+        txtMembershipPlan.setText(m.getMembershipPlan());
+    }
+        
     /**
      * @param args the command line arguments
      */
@@ -450,12 +469,10 @@ public class MainScreenUI extends javax.swing.JFrame {
             }
         });
         
-        
     }
     
     // non auto-generated variables
-    private Member searchModel;
-    private Member newMemberModel;
+    private Member member;
     private MainController controller;
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -483,13 +500,13 @@ public class MainScreenUI extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JFormattedTextField txtCellPhone;
     private javax.swing.JTextField txtCity;
-    private javax.swing.JFormattedTextField txtDob;
+    private javax.swing.JTextField txtDOB;
     private javax.swing.JTextField txtFirstName;
     private javax.swing.JFormattedTextField txtHomePhone;
     private javax.swing.JTextField txtLastName;
+    private javax.swing.JTextField txtMemberDate;
     private javax.swing.JTextField txtMemberID;
     private javax.swing.JTextField txtMembershipCost;
-    private javax.swing.JFormattedTextField txtMembershipDate;
     private javax.swing.JTextField txtMembershipPlan;
     private javax.swing.JTextField txtSearchFirstName;
     private javax.swing.JTextField txtSearchID;

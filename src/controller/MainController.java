@@ -22,5 +22,13 @@ public class MainController {
         this.view = view;
     }
     
+    public void searchMember(){
+        //TODO: Validate that model != null
+        
+    }
     
+    // updates the UI
+    public void updateMemberView(){
+        
+    }
 }

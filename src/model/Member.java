@@ -15,7 +15,7 @@ public class Member {
     
     private String firstName;
     private String lastName;
-    private Date dob;
+    private String dob;
     private String street;
     private String city;
     private String state;
@@ -23,7 +23,7 @@ public class Member {
     private int homeNum;
     private int cellNum;
     private int memberID;
-    private Date membershipStartDate;
+    private String membershipStartDate;
     private String membershipPlan;
     private double membershipCost;
 
@@ -55,11 +55,11 @@ public class Member {
         this.lastName = lastName;
     }
 
-    public Date getDob() {
+    public String getDob() {
         return dob;
     }
 
-    public void setDob(Date dob) {
+    public void setDob(String dob) {
         this.dob = dob;
     }
 
@@ -119,11 +119,11 @@ public class Member {
         this.memberID = memberID;
     }
     
-        public Date getMembershipStartDate() {
+        public String getMembershipStartDate() {
         return membershipStartDate;
     }
 
-    public void setMembershipStartDate(Date membershipStartDate) {
+    public void setMembershipStartDate(String membershipStartDate) {
         this.membershipStartDate = membershipStartDate;
     }
 
