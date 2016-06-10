@@ -28,15 +28,19 @@ public class Member {
     private double membershipCost;
 
     public Member(){
-    }
-    
-    public Member(int memberID){
-        this.memberID = memberID;
-    }
-    
-    public Member(String firstName, String lastName){
-        this.firstName = firstName;
-        this.lastName = lastName;
+        firstName = null;
+        lastName = null;
+        dob = null;
+        street = null;
+        city = null;
+        state = null;
+        membershipStartDate = null;
+        membershipPlan = null;
+        zipCode = 0;
+        homeNum = 0;
+        cellNum = 0;
+        memberID = 0;
+        membershipCost = 0.0;
     }
     
     public String getFirstName() {

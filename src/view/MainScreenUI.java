@@ -340,6 +340,11 @@ public class MainScreenUI extends javax.swing.JFrame {
         );
 
         btnSave.setText("Save");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        });
 
         btnExit.setText("Exit");
         btnExit.addActionListener(new java.awt.event.ActionListener() {
@@ -404,19 +409,20 @@ public class MainScreenUI extends javax.swing.JFrame {
     }//GEN-LAST:event_txtMembershipCostActionPerformed
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
-        // TODO add your handling code here:
+        System.exit(0);
     }//GEN-LAST:event_btnExitActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
 
-        if (txtSearchID.getText().equals(""))
-            member = new Member(txtSearchFirstName.getText(), txtSearchLastName.getText());
-        else
-            member = new Member(Integer.parseInt(txtSearchID.getText()));
-           
-        controller = new MainController(member, this);
+        controller = new MainController(this, txtSearchFirstName.getText(), txtSearchLastName.getText(),
+                Integer.parseInt(txtSearchID.getText()));
+        
         controller.searchMember();
     }//GEN-LAST:event_btnSearchActionPerformed
+
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        // validate input first
+    }//GEN-LAST:event_btnSaveActionPerformed
 
     // method that controller will use to update the view
     public void updateMemberDetails(Member m){
@@ -435,6 +441,9 @@ public class MainScreenUI extends javax.swing.JFrame {
         txtMembershipPlan.setText(m.getMembershipPlan());
     }
         
+    private void validateInput(){
+        
+    }
     /**
      * @param args the command line arguments
      */
