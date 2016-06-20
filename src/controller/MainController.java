@@ -13,41 +13,43 @@ import view.MainScreenUI;
  * @author MacBook
  */
 public class MainController {
-    
+
     private Member model;
     private MainScreenUI view;
     String firstName;
     String lastName;
-    int id;
-    
+
     // Constructor used when adding a new member
-    public MainController (Member model, MainScreenUI view) {
+    public MainController(Member model, MainScreenUI view) {
         this.model = model;
         this.view = view;
     }// end constructor
-    
+
     // Constructor used when searching for a member
-    public MainController (MainScreenUI view, String fName, String lName, int id) {
+    public MainController(MainScreenUI view, String fName, String lName, int id) {
         this.view = view;
         this.firstName = fName;
         this.lastName = lName;
-        this.id = id;
+        model = null;
+        model.setFirstName(firstName);
+        model.setLastName(lastName);
+        model.setMemberID(id);
     }// end constructor
-    
-    public void searchMember(){
-        
+
+    public void searchMember() {
+
         // if id was entered, then search by id
-        if (id != 0) {
-            // Search by ID in DB
+        if (model.getMemberID() != 0) {
+
         } else {
             // Search by first and last name
         }
-        
+
     }// end searchMember
-    
+
     // updates the UI
-    public void updateMemberView(){
-        
+    public void updateMemberView() {
+
     }//end updateMemberView class
-    
+
 }// end MainController class
