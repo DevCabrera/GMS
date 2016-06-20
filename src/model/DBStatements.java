@@ -11,8 +11,6 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -22,7 +20,7 @@ public class DBStatements {
 
     // Driver name and database url
     final private String DRIVER = "com.mysql.jdbc.Driver";
-    final private String DB_URL = "jdbc:mysql://localhost:3306/gms";
+    final private String DB_URL = "jdbc:mysql://localhost:3306/gms?zeroDateTimeBehavior=convertToNull";
 
     // Database credentials
     final String USER = Util.DB_USER;
@@ -40,8 +38,8 @@ public class DBStatements {
 
     private void startDBConnection() {
         try {
-            Class.forName(DRIVER);
-            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            Class.forName(DRIVER).newInstance();
+            this.conn = DriverManager.getConnection(DB_URL, USER, PASS);
         } catch (Exception e) {
 
         }
@@ -56,16 +54,16 @@ public class DBStatements {
         }// end if
     }// end closeDBConnection
 
-    public Member searchById(Member member) {
+    public Member searchById(Member member) throws SQLException {
 
         sql = "";
         startDBConnection();
 
         try {
             stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(sql);
             sql = "SELECT MemberID FROM Members_T WHERE MemberID = "
                     + Integer.toString(member.getMemberID()) + ";";
+            ResultSet rs = stmt.executeQuery(sql);
 
             // searches database
             while (rs.next()) {
@@ -82,7 +80,11 @@ public class DBStatements {
                 member.setMembershipCost(rs.getDouble("MembershipCost"));
 
             }// end while
-
+            
+            /* HANDLES RESULT SET IF IT'S EMPTY
+            if(!rs.next())
+            */
+            
             rs.close();
             stmt.close();
             closeDBConnection();
@@ -107,7 +109,7 @@ public class DBStatements {
                 se.printStackTrace();
             }//end finally try
         }// end try
-
+        
         return member;
     }// end searchById
 
@@ -118,10 +120,10 @@ public class DBStatements {
 
         try {
             stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(sql);
             sql = "SELECT FirstName, LastName FROM Members_T WHERE FirstName = "
                     + member.getFirstName() + "AND LastName ="
                     + member.getLastName() + ";";
+            ResultSet rs = stmt.executeQuery(sql);
 
             // searches database
             while (rs.next()) {
@@ -162,7 +164,6 @@ public class DBStatements {
     }// end searchByName
 
     public boolean addMember(Member m) {
-
         sql = "";
         startDBConnection();
 
@@ -171,13 +172,17 @@ public class DBStatements {
             sql = "INSERT INTO Members_T (MemberID, FirstName, LastName, DOB, "
                     + "Street, State, Zip, HomeNum, CellNum, MembershipDate, "
                     + "MembershipPlan, MembershipCost) VALUES (" + m.getMemberID()
-                    + "'" + m.getFirstName() + "', '" + m.getLastName() + "', '"
+                    + ", '" + m.getFirstName() + "', '" + m.getLastName() + "', '"
                     + m.getDob() + "', '" + m.getStreet() + "', '" + m.getState()
                     + "', " + m.getZipCode() + ", '" + m.getHomeNum()
                     + "', '" + m.getCellNum() + "', '" + m.getMembershipStartDate()
                     + "', '" + m.getMembershipPlan() + "', " + m.getMembershipCost()
                     + ");";
-
+            
+            stmt.executeUpdate(sql);
+            closeDBConnection();
+            return true;
+            
         } catch (SQLException se) {
             se.printStackTrace();
         } catch (Exception ex) {
@@ -196,9 +201,9 @@ public class DBStatements {
                     se.printStackTrace();
                 }
             }
+            return false;
         }// end try
 
-        closeDBConnection();
-        return true;
-    }
+    }// end addMember
+    
 }// end class

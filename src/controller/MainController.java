@@ -5,6 +5,7 @@
  */
 package controller;
 
+import java.sql.SQLException;
 import model.DBStatements;
 import model.Member;
 import view.MainScreenUI;
@@ -20,9 +21,9 @@ public class MainController {
     private DBStatements db;
 
     // Constructor used when adding a new member
-    public MainController(Member model, MainScreenUI view) {
-        this.model = model;
+    public MainController(MainScreenUI view, Member model) {
         this.view = view;
+        this.model = model;
     }// end constructor
 
     // Constructor used when searching for a member
@@ -44,7 +45,7 @@ public class MainController {
         
     }// end constructor
 
-    public void searchMember() {
+    public void searchMember() throws SQLException {
         db = new DBStatements();
 
         // if id was entered, then search by id
@@ -72,4 +73,6 @@ public class MainController {
         
     }//end updateMemberView class
 
+
+    
 }// end MainController class

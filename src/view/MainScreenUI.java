@@ -8,6 +8,7 @@ package view;
 import controller.MainController;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import model.Member;
 
 /**
@@ -425,18 +426,38 @@ public class MainScreenUI extends javax.swing.JFrame {
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
 
-        controller = new MainController(this, txtSearchFirstName.getText(), 
+        controller = new MainController(this, txtSearchFirstName.getText(),
                 txtSearchLastName.getText(), txtSearchID.getText());
-        
-        controller.searchMember();
+
+        try {
+            controller.searchMember();
+        } catch (SQLException ex) {
+        }
     }//GEN-LAST:event_btnSearchActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        // validate input first
+        Member m = new Member();
+        
+        m.setMemberID(Integer.parseInt(txtMemberID.getText()));
+        m.setFirstName(txtFirstName.getText());
+        m.setLastName(txtLastName.getText());
+        m.setDob(txtDOB.getText());
+        m.setStreet(txtStreet.getText());
+        m.setCity(txtCity.getText());
+        m.setState(txtState.getText());
+        m.setZipCode(Integer.parseInt(txtZip.getText()));
+        m.setHomeNum(txtHomePhone.getText());
+        m.setCellNum(txtCellPhone.getText());
+        m.setMembershipStartDate(txtMemberDate.getText());
+        m.setMembershipPlan(txtMembershipPlan.getText());
+        m.setMembershipCost(Double.parseDouble(txtMembershipCost.getText()));
+        
+        MainController controller = new MainController(this, m);
+        controller.addMember();
     }//GEN-LAST:event_btnSaveActionPerformed
 
     // method that controller will use to update the view
-    public void updateMemberDetails(Member m){
+    public void updateMemberDetails(Member m) {
         txtFirstName.setText(m.getFirstName());
         txtLastName.setText(m.getLastName());
         txtDOB.setText(m.getDob());
@@ -451,10 +472,11 @@ public class MainScreenUI extends javax.swing.JFrame {
         txtMembershipCost.setText(Double.toString(m.getMembershipCost()));
         txtMembershipPlan.setText(m.getMembershipPlan());
     }
-        
-    private void validateInput(){
-        
+
+    private void validateInput() {
+
     }
+
     /**
      * @param args the command line arguments
      */
@@ -488,13 +510,13 @@ public class MainScreenUI extends javax.swing.JFrame {
                 new MainScreenUI().setVisible(true);
             }
         });
-        
+
     }
-    
+
     // non auto-generated variables
     private Member member;
     private MainController controller;
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnExit;
     private javax.swing.JButton btnSave;
