@@ -425,8 +425,8 @@ public class MainScreenUI extends javax.swing.JFrame {
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
 
-        controller = new MainController(this, txtSearchFirstName.getText(), txtSearchLastName.getText(),
-                Integer.parseInt(txtSearchID.getText()));
+        controller = new MainController(this, txtSearchFirstName.getText(), 
+                txtSearchLastName.getText(), txtSearchID.getText());
         
         controller.searchMember();
     }//GEN-LAST:event_btnSearchActionPerformed

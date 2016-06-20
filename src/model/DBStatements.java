@@ -5,6 +5,9 @@
  */
 package model;
 
+import Utility.Util;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -15,13 +18,43 @@ import java.util.logging.Logger;
  *
  * @author MacBook
  */
-public class DBStatements extends DBConnector {
+public class DBStatements {
 
-    private Statement stmt;
+    // Driver name and database url
+    final private String DRIVER = "com.mysql.jdbc.Driver";
+    final private String DB_URL = "jdbc:mysql://localhost:3306/gms";
+
+    // Database credentials
+    final String USER = Util.DB_USER;
+    final String PASS = Util.DB_PASS;
+
+    // Connection variables
+    Connection conn;
+    Statement stmt;
     String sql;
 
     public DBStatements() {
+        stmt = null;
+        conn = null;
     }
+
+    private void startDBConnection() {
+        try {
+            Class.forName(DRIVER);
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+        } catch (Exception e) {
+
+        }
+    }// end startDBConnection
+
+    private void closeDBConnection() {
+        if (conn != null) {
+            try {
+                this.conn.close();
+            } catch (SQLException ex) {
+            }
+        }// end if
+    }// end closeDBConnection
 
     public Member searchById(Member member) {
 
