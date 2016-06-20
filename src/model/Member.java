@@ -20,8 +20,8 @@ public class Member {
     private String city;
     private String state;
     private int zipCode;
-    private int homeNum;
-    private int cellNum;
+    private String homeNum;
+    private String cellNum;
     private int memberID;
     private String membershipStartDate;
     private String membershipPlan;
@@ -37,8 +37,8 @@ public class Member {
         membershipStartDate = null;
         membershipPlan = null;
         zipCode = 0;
-        homeNum = 0;
-        cellNum = 0;
+        homeNum = "";
+        cellNum = "";
         memberID = 0;
         membershipCost = 0.0;
     }
@@ -99,19 +99,19 @@ public class Member {
         this.zipCode = zipCode;
     }
 
-    public int getHomeNum() {
+    public String getHomeNum() {
         return homeNum;
     }
 
-    public void setHomeNum(int homeNum) {
+    public void setHomeNum(String homeNum) {
         this.homeNum = homeNum;
     }
 
-    public int getCellNum() {
+    public String getCellNum() {
         return cellNum;
     }
 
-    public void setCellNum(int cellNum) {
+    public void setCellNum(String cellNum) {
         this.cellNum = cellNum;
     }
 

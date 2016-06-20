@@ -36,6 +36,7 @@ public class MainController {
     
     public void searchMember(){
         
+        // if id was entered, then search by id
         if (id != 0) {
             // Search by ID in DB
         } else {
