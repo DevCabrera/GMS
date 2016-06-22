@@ -120,13 +120,13 @@ public class DBStatements {
 
         try {
             stmt = conn.createStatement();
-            sql = "SELECT FirstName, LastName FROM Members_T WHERE FirstName = "
-                    + member.getFirstName() + "AND LastName ="
-                    + member.getLastName() + ";";
+            sql = "SELECT FirstName, LastName FROM Members_T WHERE FirstName = '"
+                    + member.getFirstName() + "' AND LastName = '"
+                    + member.getLastName() + "';";
             ResultSet rs = stmt.executeQuery(sql);
 
             // searches database
-            while (rs.next()) {
+            while(rs.next()) {
                 member.setMemberID(rs.getInt("MemberID"));
                 member.setDob(rs.getString("DOB"));
                 member.setStreet(rs.getString("Street"));
