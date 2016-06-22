@@ -173,11 +173,11 @@ public class DBStatements {
                     + "Street, State, Zip, HomeNum, CellNum, MembershipDate, "
                     + "MembershipPlan, MembershipCost) VALUES (" + m.getMemberID()
                     + ", '" + m.getFirstName() + "', '" + m.getLastName() + "', '"
-                    + m.getDob() + "', '" + m.getStreet() + "', '" + m.getState()
-                    + "', " + m.getZipCode() + ", '" + m.getHomeNum()
-                    + "', '" + m.getCellNum() + "', '" + m.getMembershipStartDate()
-                    + "', '" + m.getMembershipPlan() + "', " + m.getMembershipCost()
-                    + ");";
+                    + m.getDob() + "', '" + m.getStreet() + "', '" + m.getCity() 
+                    + "', '" + m.getState() + "', " + m.getZipCode() + ", '" 
+                    + m.getHomeNum() + "', '" + m.getCellNum() + "', '" 
+                    + m.getMembershipStartDate() + "', '" + m.getMembershipPlan() 
+                    + "', " + m.getMembershipCost() + ");";
             
             stmt.executeUpdate(sql);
             closeDBConnection();
