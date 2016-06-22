@@ -67,10 +67,12 @@ public class DBStatements {
 
             // searches database
             while (rs.next()) {
+
                 member.setFirstName(rs.getString("FirstName"));
                 member.setLastName(rs.getString("LastName"));
                 member.setDob(rs.getString("DOB"));
                 member.setStreet(rs.getString("Street"));
+                member.setCity(rs.getString("City"));
                 member.setState(rs.getString("State"));
                 member.setZipCode(rs.getInt("Zip"));
                 member.setHomeNum(rs.getString("HomeNum"));
@@ -80,11 +82,10 @@ public class DBStatements {
                 member.setMembershipCost(rs.getDouble("MembershipCost"));
 
             }// end while
-            
+
             /* HANDLES RESULT SET IF IT'S EMPTY
             if(!rs.next())
-            */
-            
+             */
             rs.close();
             stmt.close();
             closeDBConnection();
@@ -109,7 +110,7 @@ public class DBStatements {
                 se.printStackTrace();
             }//end finally try
         }// end try
-        
+
         return member;
     }// end searchById
 
@@ -126,10 +127,11 @@ public class DBStatements {
             ResultSet rs = stmt.executeQuery(sql);
 
             // searches database
-            while(rs.next()) {
+            while (rs.next()) {
                 member.setMemberID(rs.getInt("MemberID"));
                 member.setDob(rs.getString("DOB"));
                 member.setStreet(rs.getString("Street"));
+                member.setCity(rs.getString("City"));
                 member.setState(rs.getString("State"));
                 member.setZipCode(rs.getInt("Zip"));
                 member.setHomeNum(rs.getString("HomeNum"));
@@ -173,16 +175,16 @@ public class DBStatements {
                     + "Street, State, Zip, HomeNum, CellNum, MembershipDate, "
                     + "MembershipPlan, MembershipCost) VALUES (" + m.getMemberID()
                     + ", '" + m.getFirstName() + "', '" + m.getLastName() + "', '"
-                    + m.getDob() + "', '" + m.getStreet() + "', '" + m.getCity() 
-                    + "', '" + m.getState() + "', " + m.getZipCode() + ", '" 
-                    + m.getHomeNum() + "', '" + m.getCellNum() + "', '" 
-                    + m.getMembershipStartDate() + "', '" + m.getMembershipPlan() 
+                    + m.getDob() + "', '" + m.getStreet() + "', '" + m.getCity()
+                    + "', '" + m.getState() + "', " + m.getZipCode() + ", '"
+                    + m.getHomeNum() + "', '" + m.getCellNum() + "', '"
+                    + m.getMembershipStartDate() + "', '" + m.getMembershipPlan()
                     + "', " + m.getMembershipCost() + ");";
-            
+
             stmt.executeUpdate(sql);
             closeDBConnection();
             return true;
-            
+
         } catch (SQLException se) {
             se.printStackTrace();
         } catch (Exception ex) {
@@ -205,5 +207,5 @@ public class DBStatements {
         }// end try
 
     }// end addMember
-    
+
 }// end class
