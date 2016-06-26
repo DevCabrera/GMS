@@ -5,11 +5,10 @@
  */
 package model;
 
-import java.sql.Date;
-
 /**
  *
- * @author MacBook
+ * @author Garry Cabrera
+ * Model class for a member. Holds all attributes of a member model
  */
 public class Member {
     
@@ -19,7 +18,7 @@ public class Member {
     private String street;
     private String city;
     private String state;
-    private int zipCode;
+    private String zipCode;
     private String homeNum;
     private String cellNum;
     private int memberID;
@@ -36,7 +35,7 @@ public class Member {
         state = null;
         membershipStartDate = null;
         membershipPlan = null;
-        zipCode = 0;
+        zipCode = null;
         homeNum = "";
         cellNum = "";
         memberID = 0;
@@ -91,11 +90,11 @@ public class Member {
         this.state = state;
     }
 
-    public int getZipCode() {
+    public String getZipCode() {
         return zipCode;
     }
 
-    public void setZipCode(int zipCode) {
+    public void setZipCode(String zipCode) {
         this.zipCode = zipCode;
     }
 

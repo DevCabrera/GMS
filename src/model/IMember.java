@@ -3,16 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Utility;
+package model;
+
+import java.sql.SQLException;
 
 /**
  *
  * @author Garry Cabrera
- * Basic utility class that currently only holds the database user name
- * and password. 
+ * Interface for a member model
  */
-public class Util {
+public interface IMember {
     
-    public static final String DB_USER = "root";
-    public static final String DB_PASS = "root";
+    public void addMember();
+    public void searchMember()throws SQLException;
+    public void updateMember(Member m);
 }

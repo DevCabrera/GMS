@@ -14,28 +14,31 @@ import java.sql.Statement;
 
 /**
  *
- * @author MacBook
+ * @author Garry Cabrera
+ * Class that handles database connections and queries
  */
 public class DBStatements {
 
     // Driver name and database url
     final private String DRIVER = "com.mysql.jdbc.Driver";
-    final private String DB_URL = "jdbc:mysql://localhost:3306/gms?zeroDateTimeBehavior=convertToNull";
+    final private String DB_URL = "jdbc:mysql://localhost:3306/gms";
 
     // Database credentials
     final String USER = Util.DB_USER;
     final String PASS = Util.DB_PASS;
 
-    // Connection variables
+    // Connection and query variables
     Connection conn;
     Statement stmt;
     String sql;
 
+    // constructor
     public DBStatements() {
         stmt = null;
         conn = null;
     }
 
+    // starts a connection to the database
     private void startDBConnection() {
         try {
             Class.forName(DRIVER).newInstance();
@@ -45,6 +48,7 @@ public class DBStatements {
         }
     }// end startDBConnection
 
+    // closes the connection to the database
     private void closeDBConnection() {
         if (conn != null) {
             try {
@@ -54,41 +58,46 @@ public class DBStatements {
         }// end if
     }// end closeDBConnection
 
-    public Member searchById(Member member) throws SQLException {
+    // search for a member by using user id
+    public Member searchById(Member m) throws SQLException {
 
         sql = "";
         startDBConnection();
 
         try {
             stmt = conn.createStatement();
-            sql = "SELECT MemberID FROM Members_T WHERE MemberID = "
-                    + Integer.toString(member.getMemberID()) + ";";
+            sql = "SELECT * FROM Members_T WHERE MemberID = "
+                    + Integer.toString(m.getMemberID()) + ";";
             ResultSet rs = stmt.executeQuery(sql);
 
             // searches database
             while (rs.next()) {
 
-                member.setFirstName(rs.getString("FirstName"));
-                member.setLastName(rs.getString("LastName"));
-                member.setDob(rs.getString("DOB"));
-                member.setStreet(rs.getString("Street"));
-                member.setCity(rs.getString("City"));
-                member.setState(rs.getString("State"));
-                member.setZipCode(rs.getInt("Zip"));
-                member.setHomeNum(rs.getString("HomeNum"));
-                member.setCellNum(rs.getString("CellNum"));
-                member.setMembershipStartDate(rs.getString("MembershipDate"));
-                member.setMembershipPlan(rs.getString("MembershipPlan"));
-                member.setMembershipCost(rs.getDouble("MembershipCost"));
+                m.setFirstName(rs.getString("FirstName"));
+                m.setLastName(rs.getString("LastName"));
+                m.setDob(rs.getString("DOB"));
+                m.setStreet(rs.getString("Street"));
+                m.setCity(rs.getString("City"));
+                m.setState(rs.getString("State"));
+                m.setZipCode(rs.getString("Zip"));
+                m.setHomeNum(rs.getString("HomeNum"));
+                m.setCellNum(rs.getString("CellNum"));
+                m.setMembershipStartDate(rs.getString("MembershipDate"));
+                m.setMembershipPlan(rs.getString("MembershipPlan"));
+                m.setMembershipCost(rs.getDouble("MembershipCost"));
 
             }// end while
 
-            /* HANDLES RESULT SET IF IT'S EMPTY
-            if(!rs.next())
-             */
+            // If no m is found return null
+            if (!rs.first()) {
+                m = null;
+            }
+
+            // close all connections
             rs.close();
             stmt.close();
             closeDBConnection();
+
         } catch (SQLException se) {
             se.printStackTrace();
         } catch (Exception e) {
@@ -111,35 +120,46 @@ public class DBStatements {
             }//end finally try
         }// end try
 
-        return member;
+        return m;
     }// end searchById
 
-    public Member searchByName(Member member) {
+    // search for a member by first and last name
+    public Member searchByName(Member m) {
 
         sql = "";
         startDBConnection();
 
         try {
             stmt = conn.createStatement();
-            sql = "SELECT FirstName, LastName FROM Members_T WHERE FirstName = '"
-                    + member.getFirstName() + "' AND LastName = '"
-                    + member.getLastName() + "';";
+            sql = "SELECT * FROM Members_T WHERE FirstName = '"
+                    + m.getFirstName() + "' AND LastName = '"
+                    + m.getLastName() + "';";
             ResultSet rs = stmt.executeQuery(sql);
 
             // searches database
             while (rs.next()) {
-                member.setMemberID(rs.getInt("MemberID"));
-                member.setDob(rs.getString("DOB"));
-                member.setStreet(rs.getString("Street"));
-                member.setCity(rs.getString("City"));
-                member.setState(rs.getString("State"));
-                member.setZipCode(rs.getInt("Zip"));
-                member.setHomeNum(rs.getString("HomeNum"));
-                member.setCellNum(rs.getString("CellNum"));
-                member.setMembershipStartDate(rs.getString("MembershipDate"));
-                member.setMembershipPlan(rs.getString("MembershipPlan"));
-                member.setMembershipCost(rs.getDouble("MembershipCost"));
+                m.setMemberID(rs.getInt("MemberID"));
+                m.setDob(rs.getString("DOB"));
+                m.setStreet(rs.getString("Street"));
+                m.setCity(rs.getString("City"));
+                m.setState(rs.getString("State"));
+                m.setZipCode(rs.getString("Zip"));
+                m.setHomeNum(rs.getString("HomeNum"));
+                m.setCellNum(rs.getString("CellNum"));
+                m.setMembershipStartDate(rs.getString("MembershipDate"));
+                m.setMembershipPlan(rs.getString("MembershipPlan"));
+                m.setMembershipCost(rs.getDouble("MembershipCost"));
+            }// end while      
+
+            // If no m is found return null
+            if (!rs.next()) {
+                m = null;
             }
+
+            // close all connections
+            rs.close();
+            stmt.close();
+            closeDBConnection();
 
         } catch (SQLException se) {
             se.printStackTrace();
@@ -161,22 +181,22 @@ public class DBStatements {
             }
         }// end try
 
-        closeDBConnection();
-        return member;
+        return m;
     }// end searchByName
 
-    public boolean addMember(Member m) {
+    // adds a member to the database
+    public boolean addMemberToDB(Member m) {
         sql = "";
         startDBConnection();
 
         try {
             stmt = conn.createStatement();
             sql = "INSERT INTO Members_T (MemberID, FirstName, LastName, DOB, "
-                    + "Street, State, Zip, HomeNum, CellNum, MembershipDate, "
+                    + "Street, City, State, Zip, HomeNum, CellNum, MembershipDate, "
                     + "MembershipPlan, MembershipCost) VALUES (" + m.getMemberID()
                     + ", '" + m.getFirstName() + "', '" + m.getLastName() + "', '"
                     + m.getDob() + "', '" + m.getStreet() + "', '" + m.getCity()
-                    + "', '" + m.getState() + "', " + m.getZipCode() + ", '"
+                    + "', '" + m.getState() + "', '" + m.getZipCode() + "', '"
                     + m.getHomeNum() + "', '" + m.getCellNum() + "', '"
                     + m.getMembershipStartDate() + "', '" + m.getMembershipPlan()
                     + "', " + m.getMembershipCost() + ");";
@@ -206,6 +226,53 @@ public class DBStatements {
             return false;
         }// end try
 
-    }// end addMember
+    }// end addMemberToDB
+
+    // updates a members details 
+    public boolean updateMemberInDB(Member m) {
+
+        sql = "";
+        startDBConnection();
+
+        try {
+            stmt = conn.createStatement();
+            sql = "UPDATE gms.Members_T SET " 
+                    + "FirstName = '" + m.getFirstName() + "', LastName = '"
+                    +  m.getLastName() + "', DOB = '"+ m.getDob() 
+                    + "', Street = '" + m.getStreet() + "', City = '" + m.getCity()
+                    + "', State = '" + m.getState() + "', Zip = '"
+                    + m.getZipCode() + "', HomeNum = '" + m.getHomeNum() 
+                    + "', CellNum = '" + m.getCellNum() + "', MembershipDate = '"
+                    + m.getMembershipStartDate() + "', MembershipPlan = '" 
+                    + m.getMembershipPlan() + "', MembershipCost = "
+                    + m.getMembershipCost() 
+                    + " WHERE MemberID = " + m.getMemberID() + ";";
+
+            stmt.executeUpdate(sql);
+            closeDBConnection();
+            return true;
+
+        } catch (SQLException se) {
+            se.printStackTrace();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                } catch (SQLException se2) {
+                }
+            }
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException se) {
+                    se.printStackTrace();
+                }
+            }
+            return false;
+        }// end try
+
+    }// end updateMemberInDB
 
 }// end class

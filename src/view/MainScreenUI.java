@@ -9,13 +9,14 @@ import controller.MainController;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
 import model.Member;
 
 /**
  *
  * @author MacBook
  */
-public class MainScreenUI extends javax.swing.JFrame {
+public class MainScreenUI extends javax.swing.JFrame implements MainUI {
 
     /**
      * Creates new form MainScreenUI
@@ -58,9 +59,9 @@ public class MainScreenUI extends javax.swing.JFrame {
         txtZip = new javax.swing.JFormattedTextField();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        txtHomePhone = new javax.swing.JFormattedTextField();
-        txtCellPhone = new javax.swing.JFormattedTextField();
         txtDOB = new javax.swing.JTextField();
+        txtHomePhone = new javax.swing.JTextField();
+        txtCellPhone = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
@@ -72,8 +73,10 @@ public class MainScreenUI extends javax.swing.JFrame {
         txtMemberDate = new javax.swing.JTextField();
         btnSave = new javax.swing.JButton();
         btnExit = new javax.swing.JButton();
+        btnClear = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("GMS");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Search"));
 
@@ -126,8 +129,8 @@ public class MainScreenUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtSearchID, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(122, 122, 122))
+                .addComponent(btnSearch)
+                .addGap(137, 137, 137))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -154,6 +157,11 @@ public class MainScreenUI extends javax.swing.JFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Demographics"));
         jPanel2.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        jPanel2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jPanel2KeyTyped(evt);
+            }
+        });
 
         jLabel3.setText("First Name");
 
@@ -175,6 +183,12 @@ public class MainScreenUI extends javax.swing.JFrame {
 
         jLabel6.setText("Street Address");
 
+        txtStreet.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtStreetActionPerformed(evt);
+            }
+        });
+
         jLabel7.setText("City");
 
         jLabel8.setText("State");
@@ -191,19 +205,11 @@ public class MainScreenUI extends javax.swing.JFrame {
 
         jLabel11.setText("Cell Phone");
 
-        try {
-            txtHomePhone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(###)###-####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-
-        try {
-            txtCellPhone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(###)###-####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-
-        txtDOB.setText("mm/dd/yyyy");
+        txtHomePhone.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtHomePhoneActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -241,15 +247,15 @@ public class MainScreenUI extends javax.swing.JFrame {
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel10)
-                                    .addComponent(txtHomePhone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(113, 113, 113)
+                                    .addComponent(txtHomePhone, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(87, 87, 87)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtCellPhone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel11))))
+                                    .addComponent(jLabel11)
+                                    .addComponent(txtCellPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(txtDOB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtDOB, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -266,7 +272,7 @@ public class MainScreenUI extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtDOB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtDOB, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -289,7 +295,7 @@ public class MainScreenUI extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtHomePhone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtCellPhone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Membership Details"));
@@ -308,7 +314,11 @@ public class MainScreenUI extends javax.swing.JFrame {
 
         jLabel15.setText("ID:");
 
-        txtMemberDate.setText("mm/dd/yyyy");
+        txtMemberDate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtMemberDateActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -320,14 +330,14 @@ public class MainScreenUI extends javax.swing.JFrame {
                     .addComponent(jLabel12)
                     .addComponent(jLabel14)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(txtMemberDate, javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
                             .addComponent(jLabel15)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(txtMemberID))
                         .addComponent(txtMembershipCost)
                         .addComponent(txtMembershipPlan, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(txtMemberDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -340,8 +350,8 @@ public class MainScreenUI extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel12)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtMemberDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
+                .addComponent(txtMemberDate, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel13)
                 .addGap(12, 12, 12)
                 .addComponent(txtMembershipPlan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -366,23 +376,30 @@ public class MainScreenUI extends javax.swing.JFrame {
             }
         });
 
+        btnClear.setText("Clear All");
+        btnClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClearActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(18, 18, 18)
+                .addGap(22, 22, 22)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnExit, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 687, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnExit, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -390,18 +407,22 @@ public class MainScreenUI extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addGap(1, 1, 1)
+                        .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 2, Short.MAX_VALUE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
-        pack();
+        setSize(new java.awt.Dimension(695, 570));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtSearchIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchIDActionPerformed
@@ -433,11 +454,12 @@ public class MainScreenUI extends javax.swing.JFrame {
             controller.searchMember();
         } catch (SQLException ex) {
         }
+
     }//GEN-LAST:event_btnSearchActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        Member m = new Member();
-        
+        m = new Member();
+
         m.setMemberID(Integer.parseInt(txtMemberID.getText()));
         m.setFirstName(txtFirstName.getText());
         m.setLastName(txtLastName.getText());
@@ -445,37 +467,43 @@ public class MainScreenUI extends javax.swing.JFrame {
         m.setStreet(txtStreet.getText());
         m.setCity(txtCity.getText());
         m.setState(txtState.getText());
-        m.setZipCode(Integer.parseInt(txtZip.getText()));
+        m.setZipCode(txtZip.getText());
         m.setHomeNum(txtHomePhone.getText());
         m.setCellNum(txtCellPhone.getText());
         m.setMembershipStartDate(txtMemberDate.getText());
         m.setMembershipPlan(txtMembershipPlan.getText());
         m.setMembershipCost(Double.parseDouble(txtMembershipCost.getText()));
-        
-        MainController controller = new MainController(this, m);
-        controller.addMember();
+
+        // determine if user will save or update the information
+        if (btnSave.getText().equals("Save")) {
+            controller = new MainController(this, m);
+            controller.addMember();
+        } else {
+            btnSave.setText("Save");
+            controller.updateMember(m);
+        }
+
+        clearAll();
     }//GEN-LAST:event_btnSaveActionPerformed
 
-    // method that controller will use to update the view
-    public void updateMemberDetails(Member m) {
-        txtFirstName.setText(m.getFirstName());
-        txtLastName.setText(m.getLastName());
-        txtDOB.setText(m.getDob());
-        txtStreet.setText(m.getStreet());
-        txtCity.setText(m.getCity());
-        txtState.setText(m.getState());
-        txtZip.setText(m.getState());
-        txtHomePhone.setText(m.getHomeNum());
-        txtCellPhone.setText(m.getCellNum());
-        txtMemberID.setText(Integer.toString(m.getMemberID()));
-        txtMemberDate.setText(m.getMembershipStartDate());
-        txtMembershipCost.setText(Double.toString(m.getMembershipCost()));
-        txtMembershipPlan.setText(m.getMembershipPlan());
-    }
+    private void txtHomePhoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtHomePhoneActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtHomePhoneActionPerformed
 
-    private void validateInput() {
+    private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
+        clearAll();
+    }//GEN-LAST:event_btnClearActionPerformed
 
-    }
+    private void txtMemberDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMemberDateActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtMemberDateActionPerformed
+
+    private void txtStreetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtStreetActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtStreetActionPerformed
+
+    private void jPanel2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPanel2KeyTyped
+    }//GEN-LAST:event_jPanel2KeyTyped
 
     /**
      * @param args the command line arguments
@@ -514,10 +542,11 @@ public class MainScreenUI extends javax.swing.JFrame {
     }
 
     // non auto-generated variables
-    private Member member;
+    private Member m;
     private MainController controller;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnClear;
     private javax.swing.JButton btnExit;
     private javax.swing.JButton btnSave;
     private javax.swing.JButton btnSearch;
@@ -541,11 +570,11 @@ public class MainScreenUI extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JFormattedTextField txtCellPhone;
+    private javax.swing.JTextField txtCellPhone;
     private javax.swing.JTextField txtCity;
     private javax.swing.JTextField txtDOB;
     private javax.swing.JTextField txtFirstName;
-    private javax.swing.JFormattedTextField txtHomePhone;
+    private javax.swing.JTextField txtHomePhone;
     private javax.swing.JTextField txtLastName;
     private javax.swing.JTextField txtMemberDate;
     private javax.swing.JTextField txtMemberID;
@@ -559,4 +588,58 @@ public class MainScreenUI extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField txtZip;
     // End of variables declaration//GEN-END:variables
 
+    /** Updates the UI when passed a member instance
+     * @param m Member instance
+     */
+    @Override
+    public void updateView(Member m) {
+        clearAll();
+        txtFirstName.setText(m.getFirstName());
+        txtLastName.setText(m.getLastName());
+        txtDOB.setText(m.getDob());
+        txtStreet.setText(m.getStreet());
+        txtCity.setText(m.getCity());
+        txtState.setText(m.getState());
+        txtZip.setText(m.getZipCode());
+        txtHomePhone.setText(m.getHomeNum());
+        txtCellPhone.setText(m.getCellNum());
+        txtMemberID.setText(Integer.toString(m.getMemberID()));
+        txtMemberDate.setText(m.getMembershipStartDate());
+        txtMembershipCost.setText(Double.toString(m.getMembershipCost()));
+        txtMembershipPlan.setText(m.getMembershipPlan());
+
+        // change text of save button to update
+        btnSave.setText("Update");
+    }// end updateView
+
+    /**
+     * Clears all the fields 
+     */
+    private void clearAll() {
+        txtSearchFirstName.setText("");
+        txtSearchLastName.setText("");
+        txtSearchID.setText("");
+        txtFirstName.setText("");
+        txtLastName.setText("");
+        txtDOB.setText("");
+        txtStreet.setText("");
+        txtCity.setText("");
+        txtState.setText("");
+        txtZip.setText("");
+        txtHomePhone.setText("");
+        txtCellPhone.setText("");
+        txtMemberID.setText("");
+        txtMemberDate.setText("");
+        txtMembershipCost.setText("");
+        txtMembershipPlan.setText("");
+    }// end clearAll
+
+    /**
+     * Shows a dialog box message to the screen
+     * @params s String to be displayed
+     */
+    public void showMessage(String s) {
+        JOptionPane.showMessageDialog(null, s);
+        clearAll();
+    }// end showMessage
 }
